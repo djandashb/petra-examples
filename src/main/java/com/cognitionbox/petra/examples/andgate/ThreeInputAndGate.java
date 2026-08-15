@@ -11,14 +11,6 @@ public final class ThreeInputAndGate {
     private final InputSignal b = new InputSignal();
     private final InputSignal c = new InputSignal();
 
-    public boolean outputlow() {
-        return a.low() || b.low() || c.low();
-    }
-
-    public boolean outputhigh() {
-        return a.high() && b.high() && c.high();
-    }
-
     @Initial
     public boolean none() {
         return a.low() && b.low() && c.low();
@@ -56,10 +48,10 @@ public final class ThreeInputAndGate {
     public void toggle() {
         if (none()) {
             sep(() -> a.raise(), () -> b.raise(), () -> c.raise());
-            assert (all() && outputhigh());
+            assert (all());
         } else if (all()) {
             sep(() -> a.lower(), () -> b.lower(), () -> c.lower());
-            assert (none() && outputlow());
+            assert (none());
         }
     }
 }
